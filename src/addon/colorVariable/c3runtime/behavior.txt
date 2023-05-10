@@ -1,0 +1,18 @@
+"use strict";
+{
+  const NB_COLORS = %%NB_COLORS%%;
+  const BEHAVIOR_ID = `Mitsuhashish_${NB_COLORS}ColorVariable`;
+  const C3 = self.C3;
+
+  C3.Behaviors[BEHAVIOR_ID] = class ColorVariableBehavior extends (
+    C3.SDKBehaviorBase
+  ) {
+    constructor(opts) {
+      super(opts);
+    }
+
+    Release() {
+      super.Release();
+    }
+  };
+}

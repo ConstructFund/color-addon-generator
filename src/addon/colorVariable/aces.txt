@@ -1,0 +1,107 @@
+{
+  "set_color_value": {
+    "conditions": [],
+    "actions": [
+      {
+        "id": "set",
+        "scriptName": "Set",
+        "highlight": true,
+        "params": [
+          { "id": "id", "type": "any" },
+          {
+            "id": "color",
+            "type": "number"
+          }
+        ]
+      },
+      {
+        "id": "set_hex",
+        "scriptName": "SetHex",
+        "highlight": false,
+        "params": [
+          { "id": "id", "type": "any" },
+          {
+            "id": "color_hex",
+            "type": "string"
+          }
+        ]
+      },
+      {
+        "id": "map_str_to_id",
+        "scriptName": "MapStringToId",
+        "highlight": false,
+        "params": [
+          { "id": "str", "type": "string" },
+          { "id": "id", "type": "number" }
+        ]
+      }
+    ],
+    "expressions": []
+  },
+  "get_color_value": {
+    "conditions": [],
+    "actions": [],
+    "expressions": [
+      {
+        "id": "get",
+        "expressionName": "Get",
+        "returnType": "any",
+        "params": [{ "id": "id", "type": "any" }]
+      },
+      {
+        "id": "get_r_f",
+        "expressionName": "R",
+        "returnType": "number",
+        "params": [{ "id": "id", "type": "any" }]
+      },
+      {
+        "id": "get_g_f",
+        "expressionName": "G",
+        "returnType": "number",
+        "params": [{ "id": "id", "type": "any" }]
+      },
+      {
+        "id": "get_b_f",
+        "expressionName": "B",
+        "returnType": "number",
+        "params": [{ "id": "id", "type": "any" }]
+      },
+      {
+        "id": "as_json",
+        "expressionName": "asJSON",
+        "returnType": "string",
+        "params": [{ "id": "id", "type": "any" }]
+      },
+      {
+        "id": "as_json_255",
+        "expressionName": "asJSON255",
+        "returnType": "string",
+        "params": [{ "id": "id", "type": "any" }]
+      },
+      {
+        "id": "as_hex",
+        "expressionName": "asHEX",
+        "returnType": "string",
+        "params": [{ "id": "id", "type": "any" }]
+      },
+      {
+        "id": "r_255",
+        "expressionName": "R255",
+        "returnType": "number",
+        "params": [{ "id": "id", "type": "any" }]
+      },
+      {
+        "id": "g_255",
+        "expressionName": "G255",
+        "returnType": "number",
+        "params": [{ "id": "id", "type": "any" }]
+      },
+      {
+        "id": "b_255",
+        "expressionName": "B255",
+        "returnType": "number",
+        "params": [{ "id": "id", "type": "any" }]
+      }
+    ]
+  }
+}

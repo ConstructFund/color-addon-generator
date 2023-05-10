@@ -1,0 +1,28 @@
+"use strict";
+{
+  const NB_COLORS = %%NB_COLORS%%;
+  const BEHAVIOR_ID = `Mitsuhashish_${NB_COLORS}ColorVariable`;
+  self.C3.Behaviors[BEHAVIOR_ID].Acts = {
+    Set(id, color) {
+      id = this.parseId(id);
+      if (id < 0 || id >= NB_COLORS) return;
+      this.p_col[id] = this.string2rgb(color);
+    },
+
+    SetHex(id, color) {
+      id = this.parseId(id);
+      if (id < 0 || id >= NB_COLORS) return;
+      this.p_col[id] = this.hex2float(color);
+    },
+
+    SetHex(id, color) {
+      id = this.parseId(id);
+      if (id < 0 || id >= NB_COLORS) return;
+      this.p_col[id] = this.hex2float(color);
+    },
+
+    MapStringToId(str, id) {
+      this.strToId[str] = id;
+    }
+  };
+}

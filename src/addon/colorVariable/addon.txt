@@ -1,0 +1,27 @@
+{
+  "is-c3-addon": true,
+  "type": "behavior",
+  "name": "%%NB_COLORS%% Color Variable",
+  "id": "Mitsuhashish_%%NB_COLORS%%ColorVariable",
+  "version": "1.0.0.1",
+  "author": "Mitsuhashish (Andrea Cazzola) and skymen",
+  "website": "https://mitsuhashish.itch.io",
+  "documentation": "https://mitsuhashish.itch.io",
+  "description": "Allow the use of a color as a variable",
+  "editor-scripts": ["behavior.js", "type.js", "instance.js"],
+  "file-list": [
+    "c3runtime/behavior.js",
+    "c3runtime/type.js",
+    "c3runtime/instance.js",
+    "c3runtime/conditions.js",
+    "c3runtime/actions.js",
+    "c3runtime/expressions.js",
+    "lang/en-US.json",
+    "aces.json",
+    "addon.json",
+    "icon.svg",
+    "instance.js",
+    "behavior.js",
+    "type.js"
+  ]
+}

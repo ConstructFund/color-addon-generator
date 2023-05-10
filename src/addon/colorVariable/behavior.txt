@@ -1,0 +1,42 @@
+"use strict";
+{
+  const NB_COLORS = %%NB_COLORS%%;
+  const SDK = self.SDK;
+  const BEHAVIOR_ID = `Mitsuhashish_${NB_COLORS}ColorVariable`;
+  const BEHAVIOR_VERSION = "1.0.0.1";
+  const BEHAVIOR_CATEGORY = "other";
+
+  const BEHAVIOR_CLASS = (SDK.Behaviors[
+    BEHAVIOR_ID
+  ] = class ColorVariableBehavior extends SDK.IBehaviorBase {
+    constructor() {
+      super(BEHAVIOR_ID);
+
+      SDK.Lang.PushContext("behaviors." + BEHAVIOR_ID.toLowerCase());
+
+      this._info.SetName(lang(".name"));
+      this._info.SetDescription(lang(".description"));
+      this._info.SetVersion(BEHAVIOR_VERSION);
+      this._info.SetCategory(BEHAVIOR_CATEGORY);
+      this._info.SetAuthor("Mitsuhashish (Andrea Cazzola) and skymen");
+      this._info.SetHelpUrl(lang(".help-url"));
+      this._info.SetIsOnlyOneAllowed(false);
+
+      this._info.SetSupportedRuntimes(["c3"]);
+
+      SDK.Lang.PushContext(".properties");
+
+      let propArray = [];
+      for (let i = 0; i < NB_COLORS; i++) {
+        propArray.push(new SDK.PluginProperty("color", `p_col${i}`, [0, 0, 0]));
+      }
+
+      this._info.SetProperties(propArray);
+
+      SDK.Lang.PopContext(); //.properties
+      SDK.Lang.PopContext();
+    }
+  });
+
+  BEHAVIOR_CLASS.Register(BEHAVIOR_ID, BEHAVIOR_CLASS);
+}

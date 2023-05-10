@@ -1,10 +1,15 @@
-import Vue from 'vue'
-import App from './App.vue'
-import vuetify from './plugins/vuetify';
+import Vue from "vue";
+import App from "./App.vue";
+import vuetify from "./plugins/vuetify";
+import router from "./router";
+import VideoBg from "vue-videobg";
 
-Vue.config.productionTip = false
+Vue.component("video-bg", VideoBg);
+
+Vue.config.productionTip = false;
 
 new Vue({
   vuetify,
-  render: h => h(App)
-}).$mount('#app')
+  router,
+  render: (h) => h(App),
+}).$mount("#app");

@@ -1,0 +1,13 @@
+"use strict";
+{
+  const NB_COLORS = %%NB_COLORS%%;
+  const BEHAVIOR_ID = `Mitsuhashish_${NB_COLORS}ColorVariable`;
+  const SDK = self.SDK;
+  const BEHAVIOR_CLASS = SDK.Behaviors[BEHAVIOR_ID];
+
+  BEHAVIOR_CLASS.Type = class ColorVariableType extends SDK.IBehaviorTypeBase {
+    constructor(sdkPlugin, iBehaviorType) {
+      super(sdkPlugin, iBehaviorType);
+    }
+  };
+}

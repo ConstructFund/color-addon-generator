@@ -1,0 +1,6 @@
+"use strict";
+{
+  const NB_COLORS = %%NB_COLORS%%;
+  const BEHAVIOR_ID = `Mitsuhashish_${NB_COLORS}ColorVariable`;
+  self.C3.Behaviors[BEHAVIOR_ID].Cnds = {};
+}

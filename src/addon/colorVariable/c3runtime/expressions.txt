@@ -1,0 +1,86 @@
+"use strict";
+{
+  const NB_COLORS = %%NB_COLORS%%;
+  const BEHAVIOR_ID = `Mitsuhashish_${NB_COLORS}ColorVariable`;
+  self.C3.Behaviors[BEHAVIOR_ID].Exps = {
+    Get(id) {
+      id = this.parseId(id);
+      if (id < 0 || id >= NB_COLORS) return this.float2string(0,0,0);
+      return this.float2string(this.p_col[id][0], this.p_col[id][1], this.p_col[id][2], 1);
+    },
+
+    R(id) {
+      id = this.parseId(id);
+      if (id < 0 || id >= NB_COLORS) return 0;
+      return this.p_col[id][0];
+    },
+
+    G(id) {
+      id = this.parseId(id);
+      if (id < 0 || id >= NB_COLORS) return 0;
+      return this.p_col[id][1];
+    },
+
+    B(id) {
+      id = this.parseId(id);
+      if (id < 0 || id >= NB_COLORS) return 0;
+      return this.p_col[id][2];
+    },
+
+    asJSON(id) {
+      id = this.parseId(id);
+      if (id < 0 || id >= NB_COLORS) return JSON.stringify({
+        r: 0,
+        g: 0,
+        b: 0,
+      });
+      return JSON.stringify({
+        r: this.p_col[id][0],
+        g: this.p_col[id][1],
+        b: this.p_col[id][2],
+      });
+    },
+
+    asJSON255(id) {
+      id = this.parseId(id);
+      if (id < 0 || id >= NB_COLORS) return JSON.stringify({
+        r: 0,
+        g: 0,
+        b: 0,
+      });
+      return JSON.stringify({
+        r: Math.floor(this.p_col[id][0] * 255.99),
+        g: Math.floor(this.p_col[id][1] * 255.99),
+        b: Math.floor(this.p_col[id][2] * 255.99),
+      });
+    },
+
+    asHEX(id) {
+      id = this.parseId(id);
+      if (id < 0 || id >= NB_COLORS) return this.rgb2hex(
+        this.float2rgb(0, 0, 0)
+      );
+      return this.rgb2hex(
+        this.float2rgb(this.p_col[id][0], this.p_col[id][1], this.p_col[id][2])
+      );
+    },
+
+    R255(id) {
+      id = this.parseId(id);
+      if (id < 0 || id >= NB_COLORS) return 0;
+      return Math.floor(this.p_col[id][0] * 255.99);
+    },
+
+    G255(id) {
+      id = this.parseId(id);
+      if (id < 0 || id >= NB_COLORS) return 0;
+      return Math.floor(this.p_col[id][1] * 255.99);
+    },
+
+    B255(id) {
+      id = this.parseId(id);
+      if (id < 0 || id >= NB_COLORS) return 0;
+      return Math.floor(this.p_col[id][2] * 255.99);
+    },
+  };
+}

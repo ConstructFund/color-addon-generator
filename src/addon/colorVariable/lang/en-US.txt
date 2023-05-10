@@ -1,0 +1,169 @@
+{
+  "languageTag": "en-US",
+  "fileDescription": "Strings for %%NB_COLORS%% Color Variable Plugin",
+  "text": {
+    "behaviors": {
+      "mitsuhashish_%%NB_COLORS%%colorvariable": {
+        "name": "%%NB_COLORS%% Color Variable",
+        "description": "Allow the use of %%NB_COLORS%% color as a variable",
+        "help-url": "https://github.com/armandoalonso/c3IDE",
+        "properties": {%%PROPERTIES_JSON%%
+        },
+        "aceCategories": {
+          "set_color_value": "Set color value",
+          "get_color_value": "Get color value"
+        },
+        "conditions": {},
+        "actions": {
+          "set": {
+            "list-name": "Set",
+            "display-text": "Set color {0} to hex [b]{1}[/b]",
+            "description": "Set color variable's value",
+            "params": {
+              "id": {
+                "name": "ID",
+                "desc": "ID of the color (number or string)"
+              },
+              "color": {
+                "name": "Color",
+                "desc": "The color value you want to set the variable to"
+              }
+            }
+          },
+          "set_hex": {
+            "list-name": "Set Hex",
+            "display-text": "Set color {0} to [b]{1}[/b]",
+            "description": "Set color variable's value in Hex format",
+            "params": {
+              "id": {
+                "name": "ID",
+                "desc": "ID of the color (number or string)"
+              },
+              "color_hex": {
+                "name": "Color Hex",
+                "desc": "The color value in hex format you want to set the variable to"
+              }
+            }
+          },
+          "map_str_to_id": {
+            "list-name": "Map string to ID",
+            "display-text": "Map string {0} to ID {1}",
+            "description": "Map a string to a color id",
+            "params": {
+              "str": {
+                "name": "String",
+                "desc": "The string to map the id to"
+              },
+              "id": {
+                "name": "ID",
+                "desc": "ID of the color (number)"
+              }
+            }
+          }
+        },
+        "expressions": {
+          "get": {
+            "translated-name": "Get",
+            "description": "Get the color value in construct's format",
+            "params": {
+              "id": {
+                "name": "ID",
+                "desc": "ID of the color (number or string)"
+              }
+            }
+          },
+          "get_r_f": {
+            "translated-name": "R",
+            "description": "Get the red component as a float ( 0 - 1 )",
+            "params": {
+              "id": {
+                "name": "ID",
+                "desc": "ID of the color (number or string)"
+              }
+            }
+          },
+          "get_g_f": {
+            "translated-name": "G",
+            "description": "Get the green component as a float ( 0 - 1 )",
+            "params": {
+              "id": {
+                "name": "ID",
+                "desc": "ID of the color (number or string)"
+              }
+            }
+          },
+          "get_b_f": {
+            "translated-name": "B",
+            "description": "Get the blue component as a float ( 0 - 1 )",
+            "params": {
+              "id": {
+                "name": "ID",
+                "desc": "ID of the color (number or string)"
+              }
+            }
+          },
+          "as_json": {
+            "translated-name": "asJSON",
+            "description": "Get the color values ( 0 - 1 ) as a JSON string",
+            "params": {
+              "id": {
+                "name": "ID",
+                "desc": "ID of the color (number or string)"
+              }
+            }
+          },
+          "as_json_255": {
+            "translated-name": "asJSON255",
+            "description": "Get the color values ( 0 - 255 ) as a JSON string",
+            "params": {
+              "id": {
+                "name": "ID",
+                "desc": "ID of the color (number or string)"
+              }
+            }
+          },
+          "as_hex": {
+            "translated-name": "asHEX",
+            "description": "Get the color values ( #000000 ) as a HEX string",
+            "params": {
+              "id": {
+                "name": "ID",
+                "desc": "ID of the color (number or string)"
+              }
+            }
+          },
+          "r_255": {
+            "translated-name": "R255",
+            "description": "Get the red component as an integer ( 0 - 255 )",
+            "params": {
+              "id": {
+                "name": "ID",
+                "desc": "ID of the color (number or string)"
+              }
+            }
+          },
+          "g_255": {
+            "translated-name": "G255",
+            "description": "Get the green component as an integer ( 0 - 255 )",
+            "params": {
+              "id": {
+                "name": "ID",
+                "desc": "ID of the color (number or string)"
+              }
+            }
+          },
+          "b_255": {
+            "translated-name": "B255",
+            "description": "Get the blue component as an integer ( 0 - 255 )",
+            "params": {
+              "id": {
+                "name": "ID",
+                "desc": "ID of the color (number or string)"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
