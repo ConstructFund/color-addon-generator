@@ -241,6 +241,9 @@ void main(void)
       let langParams = "";
       const NB_COLORS = this.nbColors;
 
+      let webGPUVariables = "";
+      let webGPUIfElseIf = "";
+
       for (let i = 0; i < NB_COLORS; i++) {
         variables += `uniform lowp vec3 source${i + 1};
 uniform lowp vec3 dest${i + 1};
@@ -250,6 +253,17 @@ uniform lowp vec3 dest${i + 1};
 		newColor.rgb = dest${i + 1};
 	}
 	else `;
+
+        webGPUVariables += `source${i + 1} : vec3<f32>,
+dest${i + 1} : vec3<f32>,\n`;
+
+        webGPUIfElseIf += `if (length(front.rgb - shaderParams.source${i +
+          1}) <= shaderParams.tolerance)
+	{
+		newColor = shaderParams.dest${i + 1};
+	}
+	else `;
+
         params += `,
         {
             "id":"source${i + 1}",
@@ -299,22 +313,78 @@ void main(void)
 	gl_FragColor = mix(front, newColor, intensity);
 }
 `;
+
+      let webgl2fx = `#version 300 es
+/////////////////////////////////////////////////////////
+// Replace color effect
+in mediump vec2 vTex;
+out lowp vec4 outColor;
+uniform lowp sampler2D samplerFront;
+
+${variables}
+uniform lowp float tolerance;
+uniform lowp float intensity;
+
+void main(void)
+{
+	lowp vec4 front = texture(samplerFront, vTex);
+    lowp vec4 newColor;
+	
+	${ifelsif} // no color correspondence
+	{
+		newColor.rgb = front.rgb;
+	}
+	newColor.a = front.a;
+	
+	outColor = mix(front, newColor, intensity);
+}
+`;
+
+      let webgpufx = `
+%%FRAGMENTINPUT_STRUCT%%
+%%FRAGMENTOUTPUT_STRUCT%%
+%%SAMPLERFRONT_BINDING%% var samplerFront : sampler;
+%%TEXTUREFRONT_BINDING%% var textureFront : texture_2d<f32>;
+struct ShaderParams {
+intensity : f32,
+tolerance : f32,
+${webGPUVariables}
+};
+%%SHADERPARAMS_BINDING%% var<uniform> shaderParams : ShaderParams;
+%%C3_UTILITY_FUNCTIONS%%
+@fragment
+fn main(input : FragmentInput) -> FragmentOutput
+{
+var front : vec4<f32> = textureSample(textureFront, samplerFront, input.fragUV);
+var newColor : vec3<f32> = vec3(0.0, 0.0, 0.0);
+${webGPUIfElseIf} // no color correspondence
+{
+  newColor = front.rgb;
+}
+var output : FragmentOutput;
+output.color = mix(front, vec4(newColor, front.a), shaderParams.intensity);
+return output;
+}`;
+
       let json = `{
 	"is-c3-addon": true,
+  "sdk-version": 2,
 	"type": "effect",
 	"name": "${NB_COLORS} color replacer",
 	"id": "${NB_COLORS}-color-replacer",
-	"version": "1.0",
+	"version": "2.0.0.0",
 	"author": "Andre Silva (@andreyin) and skymen",
 	"website": "https://www.construct.net",
 	"documentation": "https://www.construct.net",
 	"description": "Replace up to ${NB_COLORS} colors in the image.",
+  "supported-renderers": ["webgl", "webgl2", "webgpu"],
 	"file-list": [
 		"lang/en-US.json",
 		"addon.json",
-		"effect.fx"
+		"effect.fx",
+    "effect.webgl2.fx",
+    "effect.wgsl"
 	],
-	
 	"category": "color",
 	"blends-background": false,
 	"cross-sampling": false,
@@ -332,13 +402,15 @@ void main(void)
             "id":"intensity",
             "type": "percent",
             "initial-value":1,
-            "uniform": "intensity"
+            "uniform": "intensity",
+            "interpolatable": true
         },
         {
             "id":"tolerance",
             "type": "percent",
             "initial-value":0.01,
-            "uniform": "tolerance"
+            "uniform": "tolerance",
+            "interpolatable": true
         }${params}
 	]
 }`;
@@ -365,7 +437,14 @@ void main(void)
     }
   }
 }`;
-      return { fx, json, name: `${NB_COLORS}-color-replacer`, lang };
+      return {
+        fx,
+        json,
+        name: `${NB_COLORS}-color-replacer`,
+        lang,
+        webgl2fx,
+        webgpufx,
+      };
     },
     downloadC3Addon() {
       var zip = new JSZip();
@@ -373,6 +452,8 @@ void main(void)
       let langFolder = zip.folder("lang");
       langFolder.file(`en-US.json`, files.lang);
       zip.file("effect.fx", files.fx);
+      zip.file("effect.webgl2.fx", files.webgl2fx);
+      zip.file("effect.wgsl", files.webgpufx);
       zip.file("addon.json", files.json);
       zip.generateAsync({ type: "blob" }).then(function(content) {
         // see FileSaver.js
