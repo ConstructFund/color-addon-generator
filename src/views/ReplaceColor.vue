@@ -157,7 +157,7 @@ void main(void)
 	}
 	newColor.a = front.a;
 	
-	gl_FragColor = mix(front, newColor, intensity);
+	gl_FragColor = vec4(mix(front.rgb, newColor.rgb * front.a, intensity), front.a);
 }
 `;
 
@@ -310,7 +310,7 @@ void main(void)
 	}
 	newColor.a = front.a;
 	
-	gl_FragColor = mix(front, newColor, intensity);
+	gl_FragColor = vec4(mix(front.rgb, newColor.rgb * front.a, intensity), front.a);
 }
 `;
 
@@ -336,7 +336,7 @@ void main(void)
 	}
 	newColor.a = front.a;
 	
-	outColor = mix(front, newColor, intensity);
+	outColor = vec4(mix(front.rgb, newColor.rgb * front.a, intensity), front.a);
 }
 `;
 
@@ -362,7 +362,7 @@ ${webGPUIfElseIf} // no color correspondence
   newColor = front.rgb;
 }
 var output : FragmentOutput;
-output.color = mix(front, vec4(newColor, front.a), shaderParams.intensity);
+output.color = vec4(mix(front.rgb, newColor * front.a, shaderParams.intensity), front.a);
 return output;
 }`;
 
@@ -372,7 +372,7 @@ return output;
 	"type": "effect",
 	"name": "${NB_COLORS} color replacer",
 	"id": "${NB_COLORS}-color-replacer",
-	"version": "2.0.0.0",
+	"version": "2.0.0.1",
 	"author": "Andre Silva (@andreyin) and skymen",
 	"website": "https://www.construct.net",
 	"documentation": "https://www.construct.net",
@@ -388,7 +388,7 @@ return output;
 	"category": "color",
 	"blends-background": false,
 	"cross-sampling": false,
-	"preserves-opaqueness": false,
+	"preserves-opaqueness": true,
 	"animated": false,
 	"must-predraw" : false,
 
